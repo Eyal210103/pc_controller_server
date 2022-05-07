@@ -1,0 +1,2 @@
+class IncompatibleCommandTypeError(BaseException):
+    pass
