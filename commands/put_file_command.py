@@ -6,7 +6,7 @@ import logging
 
 class PutFileCommand(BaseCommand):
     @staticmethod
-    def perform_command(command: str, args: list) -> str:
+    def perform_command(args: list) -> str:
         """
         args[0] = file path
         args[1] = base64 file data

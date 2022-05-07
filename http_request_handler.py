@@ -20,7 +20,7 @@ def get_request_handler(command_handler: CommandHandler):
             try:
                 json_dict = json.decoder.JSONDecoder().decode(data)
                 logging.info(str(json_dict))
-                result = self.command_handler.handle_command(json_dict['type'], json_dict['command'], json_dict['args'])
+                result = self.command_handler.handle_command(json_dict['type'], json_dict['args'])
                 self.send_response(HTTPStatus.OK)
                 self.wfile.write(result.encode())
                 self.send_header("Content-Length", str(len(result.encode())))
