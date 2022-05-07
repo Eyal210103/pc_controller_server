@@ -10,7 +10,7 @@ class CommandHandler:
     TYPE_TO_CLASS = {
         SHELL_COMMAND_TYPE: ShellCommand,
         PUT_FILE_COMMAND_TYPE: PutFileCommand,
-        LAUNCH_APPLICATION_COMMAND_TYPE: LAUNCH_APPLICATION_COMMAND_TYPE
+        LAUNCH_APPLICATION_COMMAND_TYPE: LaunchApplicationCommand
     }
 
     def __init__(self) -> None:
