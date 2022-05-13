@@ -1,0 +1,2 @@
+class IncompatibleRetrieverTypeError(BaseException):
+    pass
