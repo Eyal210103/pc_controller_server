@@ -13,3 +13,4 @@ class ShellCommand(BaseCommand):
         except Exception as e:
             logging.error(e)
             return f"ERROR {e}"
+
