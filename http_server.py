@@ -4,10 +4,6 @@ from typing import Tuple
 from http.server import HTTPServer
 from command_handler import CommandHandler
 
-logging.basicConfig(level=logging.DEBUG)
-
-BINDING_ADDRESS = ('127.0.0.1', 8080)
-
 
 class PCControllerHTTPServer:
 
@@ -19,12 +15,3 @@ class PCControllerHTTPServer:
 
     def shutdown(self) -> None:
         self.server.shutdown()
-
-
-def main():
-    server = PCControllerHTTPServer(BINDING_ADDRESS)
-    server.serve()
-
-
-if __name__ == '__main__':
-    main()

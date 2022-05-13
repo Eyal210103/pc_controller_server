@@ -11,7 +11,3 @@ def launch_application(application_name: str):
     if application_name in APP_TO_PATH:
         application_name = APP_TO_PATH[application_name]
     subprocess.call(application_name)
-
-
-# if __name__ == '__main__':
-#     launch_application('discord')
