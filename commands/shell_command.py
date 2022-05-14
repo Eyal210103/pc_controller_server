@@ -10,7 +10,9 @@ class ShellCommand(BaseCommand):
             result = subprocess.check_output(args[0], shell=True).decode()
             logging.info(result)
             return result
+        except IndexError as e:
+            logging.error(e)
+            return "Missing Arguments"
         except Exception as e:
             logging.error(e)
             return f"ERROR {e}"
-

@@ -8,6 +8,9 @@ class LaunchApplicationCommand(BaseCommand):
     def perform_command(args: list) -> str:
         try:
             launch_application(args[0])
+        except IndexError as e:
+            logging.error(e)
+            return "Missing Arguments"
         except Exception as e:
             logging.error(e)
             return f"ERROR {e}"

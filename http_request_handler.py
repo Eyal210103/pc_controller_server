@@ -1,13 +1,14 @@
-import socketserver
 import json
 import logging
-from http.server import BaseHTTPRequestHandler
+import socketserver
 from http import HTTPStatus
+from http.server import BaseHTTPRequestHandler
 from typing import Tuple
+
 from command_handler import CommandHandler
+from exceptions.incompatible_command_type_error import IncompatibleCommandTypeError
 from result import Result
 from retrievers_performers import RetrieversPerformer
-from exceptions.incompatible_command_type_error import IncompatibleCommandTypeError
 
 
 def get_request_handler(command_handler: CommandHandler, retriever_performer: RetrieversPerformer):
@@ -19,17 +20,18 @@ def get_request_handler(command_handler: CommandHandler, retriever_performer: Re
             super().__init__(request, client_address, server)
 
         def create_ok(self, data_to_send):
-            result: Result = Result(data_to_send)
+            result_json: str = Result(data_to_send).to_json()
             self.send_response(HTTPStatus.OK)
-            self.wfile.write(result.to_json())  # change to json object
-            self.send_header("Content-Length", str(len(data_to_send.encode())))
+            self.wfile.write(result_json.encode(encoding='UTF-16'))  # change to json object
+            self.send_header("Content-Length", str(len(result_json)))
 
         def do_POST(self) -> None:
             data = self.rfile.read().decode()
             try:
                 json_dict = json.decoder.JSONDecoder().decode(data)
                 logging.info(str(json_dict))
-                result_data = self.command_handler.handle_command(json_dict['type'], *list(json_dict['args']))
+                result_data = self.command_handler.handle_command(json_dict['type'],
+                                                                  *json_dict['args'] if 'args' in json_dict else None)
                 self.create_ok(result_data)
             except IncompatibleCommandTypeError as e:
                 logging.error(e)
@@ -44,7 +46,7 @@ def get_request_handler(command_handler: CommandHandler, retriever_performer: Re
             try:
                 json_dict = json.decoder.JSONDecoder().decode(data)
                 logging.info(str(json_dict))
-                result_data = self.retriever_performer.perform(json_dict['type'], json_dict['args'])
+                result_data = self.retriever_performer.perform(json_dict['type'])
                 self.create_ok(result_data)
             except IncompatibleCommandTypeError as e:
                 logging.error(e)
