@@ -1,5 +1,5 @@
-from base_retriever import BaseRetriever
-from dispatchers.software_list_dispatcher import SoftwareListDispatcher
+from retrievers.base_retriever import BaseRetriever
+from retrievers.dispatchers.software_list_dispatcher import SoftwareListDispatcher
 
 
 class SoftwareListRetriever(BaseRetriever):

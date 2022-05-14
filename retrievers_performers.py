@@ -12,9 +12,7 @@ class RetrieversPerformer:
         super().__init__()
 
     @staticmethod
-    def perform(retriever_type, args=None):
-        if args is None:
-            args = []
+    def perform(retriever_type, *args):
         if retriever_type in RetrieversPerformer.TYPE_TO_CLASS:
-            return RetrieversPerformer.TYPE_TO_CLASS[retriever_type]()
+            return RetrieversPerformer.TYPE_TO_CLASS[retriever_type](*args)
         raise IncompatibleRetrieverTypeError

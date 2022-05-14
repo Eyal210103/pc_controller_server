@@ -17,9 +17,7 @@ class CommandHandler:
         super().__init__()
 
     @staticmethod
-    def handle_command(command_type: str, args=None) -> str:
-        if args is None:
-            args = []
+    def handle_command(command_type: str, *args) -> str:
         if command_type in CommandHandler.TYPE_TO_CLASS:
-            return CommandHandler.TYPE_TO_CLASS[command_type]().perform_command(args)
+            return CommandHandler.TYPE_TO_CLASS[command_type]().perform_command(*args)
         raise IncompatibleCommandTypeError(command_type)
